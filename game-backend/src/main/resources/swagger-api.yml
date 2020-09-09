@@ -1,0 +1,175 @@
+swagger: '2.0'
+info:
+  version: '1.0.1'
+  title: Rock Paper Scissors
+  description: This is a practice with swagger
+# basePath: /rockPaperScissors/
+ 
+paths:
+# Endpoints User
+  /game:
+    post:
+      tags: 
+        - GameController
+      summary: "Start a game"
+      description: "Start a game"
+      operationId: createGame
+      consumes: 
+        - application/json
+      parameters:
+        - in: query
+          name: player1HandId
+          description: "id Hand"
+          required: true
+          type: integer
+        - in: query
+          name: player2HandId
+          description: "id Hand"
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: "Game started."
+          schema:
+              $ref: "#/definitions/GameDTO"
+        '400':
+          description: "Inconsisten data."
+        '500':
+          description: "Internal Server Error."
+  /game/{id}:
+    put:
+      tags: 
+        - GameController
+      summary: "Continue a game"
+      description: "Continue a game"
+      operationId: continueGame
+      consumes: 
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: "Id of the game"
+          required: true
+          type: integer
+        - in: query
+          name: player1HandId
+          description: "id Hand"
+          required: true
+          type: integer
+        - in: query
+          name: player2HandId
+          description: "id Hand"
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: "Game started."
+          schema:
+              $ref: "#/definitions/GameDTO"
+        '400':
+          description: "Inconsisten data."
+        '404':
+          description: "Game with this id didnt exist."
+        '500':
+          description: "Internal Server Error."
+          
+  /game/{id}/clean:
+    put:
+      tags: 
+        - GameController
+      summary: "Clean a game"
+      description: "Clean a game"
+      operationId: cleanGame
+      consumes: 
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: "Id of the game"
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: "Game cleaned."
+          schema:
+              $ref: "#/definitions/GameDTO"
+        '400':
+          description: "Inconsisten data."
+        '404':
+          description: "Game with this id didnt exist."
+        '500':
+          description: "Internal Server Error."
+          
+  /game/catalogTypes:
+    get:
+      tags: 
+        - GameController
+      summary: "Catalog of types of hands"
+      description: "Catalog of types of hands"
+      operationId: getHandTypes
+      consumes: 
+        - application/json
+      responses:
+        '200':
+          description: 'Catalog data.'
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/HandTypeDTO"
+        '500':
+          description: "Internal Server Error."
+
+definitions:
+  HandTypeDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: "Id of the game"
+      desc:
+        type: string
+        description: "Id of the game"
+  GameDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: "Id of the game"
+      player1Victories:
+        type: integer
+        description: "Victories of the player 1"
+      player2Victories:
+        type: integer
+        description: "Victories of the player 2"
+      draws:
+        type: integer
+        description: "Draws rounds"
+      numberRounds:
+        type: integer
+        description: "Total rounds played"
+      roundList:
+        type: array
+        items:
+          $ref: "#/definitions/RoundDTO"
+  RoundDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: "Id of the round"
+      handPlayer1Id:
+        type: integer
+      handPlayer2Id:
+        type: integer
+      winner:
+        type: integer
+        description: |
+          Who won the game
+            0 draw
+            1 player1
+            2 player2
+
+schemes:
+ - https
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com

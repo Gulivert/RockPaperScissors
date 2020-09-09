@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Rock Paper Scissors</title>
+
+<link rel="stylesheet"
+	th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<a class="navbar-brand" href="#">Rock Paper Scissors</a>
+	</nav>
+
+	<main role="main" class="container">
+
+		<div class="starter-template">
+			<h1>Welcome to the game</h1>
+		</div>
+		<div id="playRound">
+			<a href="/play" class="btn btn-primary" role="button">Play!</a>
+		</div>
+
+		<div th:if="${game != null} AND ${game.roundList != null}">
+			<table class="table table-dark">
+				<thead>
+					<tr>
+						<th scope="col">Player 1</th>
+						<th scope="col">Player 2</th>
+						<th scope="col">Winner</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="rd : ${game.roundList}">
+						<td
+							th:text="${hands[rd.handPlayer1Id]}">0</td>
+						<td th:text="${hands[rd.handPlayer2Id]}">0</td>
+						
+						<td th:switch="${rd.winner}">
+						<span th:case="'0'">Draw</span>
+						<span th:case="'1'">Player 1</span>
+						<span th:case="'2'">Player 2</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="card">
+				<div class="card-header">Resume</div>
+				<div class="card-body">
+					<dl class="row">
+						<dt class="col-sm-2">Player 1 Victories:</dt>
+						<dd class="col-sm-1" th:text="${game.player1Victories}">0</dd>
+						<dt class="col-sm-2">Player 2 Victories:</dt>
+						<dd class="col-sm-1" th:text="${game.player2Victories}">0</dd>
+					</dl>
+
+					<dl class="row">
+						<dt class="col-sm-2">Total Rounds:</dt>
+						<dd class="col-sm-1" th:text="${game.numberRounds}">0</dd>
+						<dt class="col-sm-2">Draws</dt>
+						<dd class="col-sm-1" th:text="${game.draws}">0</dd>
+					</dl>
+				</div>
+			</div>
+
+			<div id="cleanRound">
+				<a href="/clean" class="btn btn-primary" role="button">Clean</a>
+			</div>
+		</div>
+
+
+	</main>
+	<!-- /.container -->
+
+	<script type="text/javascript"
+		th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</body>
+</html>
