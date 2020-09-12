@@ -13,6 +13,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 
 import com.ggmartin.paperrockscissors.domain.models.GameDTO;
+import com.ggmartin.paperrockscissors.domain.ports.DataService;
+import com.ggmartin.paperrockscissors.domain.ports.GameControllerApi;
 
 @SpringBootTest
 class GameTest {

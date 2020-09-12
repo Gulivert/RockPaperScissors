@@ -39,6 +39,7 @@ public class SwaggerDocumentationConfig {
 
 	@Bean
 	public ModelMapper modelMapper() {
+
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(AccessLevel.PRIVATE);
 		return modelMapper;
