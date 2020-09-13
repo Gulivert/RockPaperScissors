@@ -25,7 +25,9 @@
 	</properties>
 	
     <modules>
+		<module>rest-client</module>
         <module>game-backend</module>
+        <module>web</module>
     </modules>
 		
 </project>
